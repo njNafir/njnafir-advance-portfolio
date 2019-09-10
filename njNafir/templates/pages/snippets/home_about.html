@@ -6,7 +6,9 @@
 			<div class="row">
 				<div class="col-12 col-lg-6">
 					<div class="intro-img mb-5 text-center">
-						<img class="img-fluid" src="{% static 'img/' info.picture %}">
+						{% if info.picture %}
+						<img class="img-fluid" src="{% static info.picture.url %}">
+						{% endif %}
 					</div>
 				</div>
 				<div class="col-12 col-lg-6 text-left">

@@ -54,9 +54,9 @@ def profile_picture_upload_path(instance, filename):
 
 class Info(models.Model):
 	title 				= models.CharField(max_length=255, default='Nj Nafir')
-	favicon 			= models.ImageField(upload_to=favicon_upload_path, storage=FileSystemStorage(location=settings.MAIN_ROOT))
+	favicon 			= models.ImageField(upload_to=favicon_upload_path)
 	name 				= models.CharField(max_length=120, default='Nj Nafir')
-	picture 			= models.ImageField(upload_to=profile_picture_upload_path, storage=FileSystemStorage(location=settings.MAIN_ROOT))
+	picture 			= models.ImageField(upload_to=profile_picture_upload_path)
 	description 		= models.CharField(max_length=120, default='Full Stack Web Developer')
 	view_portfolio_text = models.CharField(max_length=120, default='View Portfolio')
 	hire_me_text 		= models.CharField(max_length=120, default='Hire Me')

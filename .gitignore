@@ -6,6 +6,7 @@ njNafir/settings/local.py
 njNafir_staticfiles_dirs
 njNafir_scss
 njNafir_staticfiles_cdn/compressed
+njNafir_staticfiles_cdn/static_root
 njNafir_staticfiles_cdn/img
 njNafir_staticfiles_cdn/med_prot_file
 njNafir_staticfiles_cdn/media_file
