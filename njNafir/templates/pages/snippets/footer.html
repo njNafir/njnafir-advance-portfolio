@@ -1,0 +1,17 @@
+{% load staticfiles %}
+<div class="container">
+	<div class="footer-content text-center my-5">
+		{% if so_li is not None %}
+			<div class="social-link-area">
+				<ul class="m-0 p-0">
+				{% for sl in so_li %}
+					<a href="{{ sl.link }}" target="_blank" title="{{ sl.title }}"><li class="d-inline bg-dark text-light my-3 mx-4"><img src="{% static sl.icon.url %}" alt="{{ sl.title }}"></li></a>
+				{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		<div class="copyright-area mt-5">
+			<h1 class="copyright-title text-uppercase">{% if info.name %}{{ info.name }}{% endif %} &copy;2019</h1>
+		</div>
+	</div>
+</div>

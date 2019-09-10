@@ -1,0 +1,27 @@
+<div class="" style="background-color: #1B242F;">
+	<div class="container">
+		<div class="menu-wrap">
+			{% include 'pages/snippets/navbar.html' %}
+		</div>
+	</div>
+</div>
+{% if home_page %}
+	<div class="container">
+		<div class="header-content text-center">
+			<div class="text-light py-4">
+				<h2 class="title display-3 pt-4 pb-2">Hello, I'm {% if name %}{{ name }}{% endif %}</h2>
+				<h3 class="description display-4 pb-4 pt-2">I'm a {% if desc %}{{ desc }}{% endif %}</h3>
+				<div class="py-5 link">
+					<div class="row">
+						<div class="col-12 col-md-6 text-right d-block">
+							<a class="mx-3 my-3 py-4 px-5 bg-secondary text-light" href="{% url 'portfolio_all' %}">{% if vpt %}{{ vpt }}{% endif %}</a>
+						</div>
+						<div class="col-12 col-md-6 text-left d-block">
+							<a class="mx-3 my-3 py-4 px-5 bg-info text-light" href="{% url 'contact_page' %}">{% if hmt %}{{ hmt }}{% endif %}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

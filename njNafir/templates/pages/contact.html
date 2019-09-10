@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Contact{% if info.title %} | {{ info.title }}{% endif %}{% endblock title %}
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'nafir/css/home.css' %}">
+{% endblock stylesheet %}
+{% block content %}
+<header class="header-wrap header-bg">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/header.html' %}
+		</div>
+	</div>
+</header>
+<main class="content-wrap first-bg">
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="contact-wrap d-block text-light">
+				{% include 'pages/snippets/home_contact.html' %}
+			</div>
+		</div>
+	</div>
+</main>
+<footer class="footer-wrap footer-bg py-5">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/footer.html' with info=info so_li=so_li %}
+		</div>
+	</div>
+</footer>
+{% endblock content %}

@@ -1,0 +1,33 @@
+<div class="container">
+	<h1 class="wrapper-title contact-title display-3 {% if home_page %}py-5{% else %}py-2{% endif %} text-uppercase">Contact</h1>
+	<div class="contact">
+		<div class="row text-center">
+			<div class="col-12 col-md-8 col-lg-6 mx-auto">
+				{% if not home_page %}
+				<div class="hire-contact-form">
+					<h1 class="contact-quote {% if not home_page %}display-3 pt-5 text-uppercase{% endif %}">Hire Nj Nafir?</h1>
+					<hr>
+					<div class="form-wrap">
+						<form class="form" method="POST" action="">
+							{{ hire_form.as_p }}
+							{% csrf_token %}
+							<input type="submit" name="Submit" class="btn px-5 py-3 text-uppercase submit-hire-contact-form submit" value="Hire Now">
+						</form>
+					</div>
+				</div>	
+				{% endif %}
+				<div class="normal-contact pt-5 mt-5">
+					<h1 class="contact-quote {% if not home_page %}display-3 pt-5 text-uppercase{% endif %}">Have a question or want to work together?</h1>
+					<hr>
+					<div class="form-wrap">
+						<form class="form" method="POST" action="">
+							{{ form.as_p }}
+							{% csrf_token %}
+							<input type="submit" name="Submit" class="btn px-5 py-3 text-uppercase submit-normal-contact-form submit" value="Ask now">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

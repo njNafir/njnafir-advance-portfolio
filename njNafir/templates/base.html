@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/ico" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="{% static 'compressed/boots/css/bootstrap.min.css' %}"> -->
+    {% block stylesheet %}{% endblock stylesheet %}
+
+    <title>{% block title %}{% if title %}{{ title }}{% endif %}{% endblock title %}</title>
+  </head>
+  <body style="padding-top: 44px;">
+    {% block content %}BASE{% endblock content %}
+<!--     <script src="{% static 'compressed/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'compressed/boots/js/bootstrap.min.js' %}"></script>  -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {% block jscript %}{% endblock jscript %}
+  </body>
+</html>

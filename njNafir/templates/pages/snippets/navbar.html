@@ -1,0 +1,43 @@
+{% load staticfiles %}
+{% url 'home_page' as home %}
+{% url 'about_page' as about %}
+{% url 'portfolio_all' as port_all %}
+{% url 'portfolio_developed' as port_dev %}
+{% url 'portfolio_designed' as port_des %}
+{% url 'blog_page' as blog_page %}
+{% url 'contact_page' as contact_page %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #1B242F;">
+  <div class="container">
+      <a class="navbar-brand" href="{% url 'home_page' %}"><img src="{% static 'favicon.ico' %}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% if request.path == home %}active{% endif %}">
+          <a class="nav-link" href="{{ home }}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item {% if request.path == about %}active{% endif %}">
+          <a class="nav-link" href="{{ about }}">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link {% if request.path == port_all %}active{% endif %}{% if request.path == port_dev %}active{% endif %}{% if request.path == port_des %}active{% endif %} dropdown-toggle" href="{{ port_all }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Portfolio
+          </a>
+          <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+            <li class="{% if request.path == port_all %}active{% endif %}"><a class="dropdown-item text-light" href="{{ port_all }}">All</a></li>
+            <div class="dropdown-divider"></div>     
+            <li class="{% if request.path == port_dev %}active{% endif %}"><a class="dropdown-item text-light" href="{{ port_dev }}">Development</a></li>
+            <li class="{% if request.path == port_des %}active{% endif %}"><a class="dropdown-item text-light" href="{{ port_des }}">Design</a></li>   
+          </ul>
+        </li>
+        <li class="nav-item {% if request.path == blog_page %}active{% endif %}">
+          <a class="nav-link" href="{{ blog_page }}" tabindex="-1">Blog</a>
+        </li>
+        <li class="nav-item {% if request.path == contact_page %}active{% endif %}">
+          <a class="nav-link" href="{{ contact_page }}" tabindex="-1">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

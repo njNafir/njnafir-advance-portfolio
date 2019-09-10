@@ -1,0 +1,175 @@
+{% load staticfiles %}
+<div class="container">
+	<h1 class="wrapper-title about-title display-3 {% if home_page %}py-5{% else %}py-2{% endif %} text-uppercase">About</h1>
+	<div class="about-content">
+		<div class="introduction">
+			<div class="row">
+				<div class="col-12 col-lg-6">
+					<div class="intro-img mb-5 text-center">
+						{% if info.photo %}
+						<img class="img-fluid" src="{% static info.photo.url %}">
+						{% else %}
+						<img class="img-fluid" src="{% static 'img/nafir.jpg' %}">
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-12 col-lg-6 text-left">
+					<p class="pt-2 text-center pb-4">{% if info.about_intro_text %}{{ info.about_intro_text }}{% endif %}</p>
+					<ul>
+						<li>Development.</li>
+						<ul>
+							<li>With Django (Python).</li>
+							<li>With WordPress (PHP).</li>
+						</ul>
+						<li>Design.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="experience">
+			{% if info.exper_skill.exists %}
+				<h1 class="title py-4 mb-4 text-uppercase">{% if info.exper_sec_title %}{{ info.exper_sec_title }}{% endif %}</h1>
+				<div class="experience-progress">
+					{% for sk in info.exper_skill.all %}
+						<div class="progress my-2 text-uppercase border-radius-none {% if sk.prog_class %}{{ sk.prog_class }}{% endif %}">
+						  <div class="progress-bar {% if sk.prog_bar_class %}{{ sk.prog_bar_class }}{% else %}bg-dark{% endif %}" role="progressbar" style="width: {{ sk.prog_info_perc }}%; cursor: pointer;" aria-valuenow="{{ sk.prog_info_perc }}" aria-valuemin="{{ sk.area_valuemin }}" aria-valuemax="{{ sk.area_valuemax }}">{{ sk.prog_info }}</div>
+						  <div class="progress-bar bg-prog text-right" role="progressbar" style="width: {{ sk.prog_skill_perc }}%" aria-valuenow="{{ sk.prog_skill_perc }}" aria-valuemin="{{ sk.area_valuemin }}" aria-valuemax="{{ sk.area_valuemax }}">{{ sk.prog_skill_lavel }} {{ sk.show_prog_skill }}%</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+		<div class="experience-comment py-4">
+			<p class="comment">{% if info.exper_comment %}{{ info.exper_comment }}{% endif %}</p>
+		</div>
+	</div>
+	{% if home_page %}
+		<div class="about-more more-from-home-to-another my-5 mx-4 text-uppercase">
+			<a class="bg-dark py-4 px-5 my-4 mx-4 text-light text-decoration-none" href="{% url 'about_page' %}">{% if info.about_more_text %}{{ info.about_more_text }}{% endif %}</a>
+		</div>
+	{% else %}
+		<div class="about-more-content">
+			<div class="man-overview-wrap">
+			{% if ManOverview is not None %}
+			<div class="man-overview">
+				<div class="overview-head bg-light">
+					<h1 class="display-4 text-uppercase pt-5 mt-5 pb-2 mb-2">Man Overview</h1>
+					<h4 class="display-5 pb-5 mb-5">This will showup my all flow</h4>
+				</div>
+				<div class="basic-info text-right py-3 my-3">
+					<h4 class="name">{% if ManOverview.name %}{{ ManOverview.name }}{% endif %}</h4>
+					<h4 class="email">{% if ManOverview.email %}{{ ManOverview.email }}{% endif %}</h4>
+					<h4 class="phone">{% if ManOverview.phone %}{{ ManOverview.phone }}{% endif %}</h4>
+					<h4 class="website">{% if ManOverview.website %}{{ ManOverview.website }}{% endif %}</h4>
+					<h4 class="address_line_1">{% if ManOverview.address_line_1 %}{{ ManOverview.address_line_1 }}{% endif %}</h4>
+					<h4 class="address_line_2">{% if ManOverview.address_line_2 %}{{ ManOverview.address_line_2 }}{% endif %}</h4>
+				</div>
+				{% if ManOverview.objective %}
+				<div class="objective-wrap text-left">
+					<h2 class="text-uppercase my-4 py-4 px-1">Objective:</h2>
+					<p>{{ ManOverview.objective|linebreaks }}</p>
+				</div>
+				{% endif %}
+				{% if Appointment is not None %}
+					<div class="appointment-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Appointment:</h2>
+						<ul class="appointment man-overview-single-ul">
+							{% for ap in Appointment %}
+							<li class="appointment-item" style="font-size: 200%;"><span class="position">{{ ap.position }}</span>{% if ap.start_date and ap.end_date %}<span class="date"> ({{ ap.start_date }} - {{ ap.end_date }})</span>{% endif %}{% if ap.department %} in <span class="department">{{ ap.department }}</span> section{% endif %} at <span class="institute">{{ ap.institute }}</span></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if Qualification is not None %}
+					<div class="qualification-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Qualification:</h2>
+						<ul class="qualification man-overview-single-ul">
+							{% for qu in Qualification %}
+							<li class="qualification-item man-overview-single-ul-item" style="font-size: 200%;"><span class="course">{{ qu.course_name }}</span>{% if qu.certificate %}<span class="certificate" data-image="{% static qu.certificate.url %}"></span>{% endif %}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if Education is not None %}
+					<div class="education-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Education:</h2>
+						<table class="table table-light table-hover table-striped">
+							<thead>
+								<td>Num</td>
+								<td>Degree</td>
+								<td>Subject</td>
+								<td>Year</td>
+								<td>Institute</td>
+								<td>Result</td>
+								<td>Certificate</td>
+							</thead>
+							{% for ed in Education %}
+							<tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ ed.degree }}</td>
+								<td>{{ ed.subject }}</td>
+								<td>{% if ed.year %}{{ ed.year }}{% endif %}</td>
+								<td>{% if ed.institute %}{{ ed.institute }}{% endif %}</td>
+								<td>{% if ed.result %}{{ ed.result }}{% endif %}</td>
+								<td data-image="{% if ed.certificate %}{{ ed.certificate.url }}{% endif %}"></td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% endif %}
+				{% if Interest is not None %}
+					<div class="interest-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Interest:</h2>
+						<ul class="interest man-overview-single-ul">
+							{% for in in Interest %}
+							<li class="interest-item d-inline man-overview-single-ul-item" style="font-size: 200%;">{{ in.interest_name }}{% if in.interest_type %}({{ in.interest_type }}){% endif %}</li>{% if not forloop.last %}<span class="display-4">, </span>{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if ResearchInterest is not None %}
+					<div class="research-interest-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Research Interest:</h2>
+						<ul class="research-interest man-overview-single-ul">
+							{% for rin in ResearchInterest %}
+							<li class="research-interest-item d-inline man-overview-single-ul-item" style="font-size: 200%;">{{ rin.name }}{% if rin.description %}({{ rin.description }}){% endif %}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if Award is not None %}
+					<div class="award-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Award:</h2>
+						<ul class="award man-overview-single-ul">
+							{% for aw in Award %}
+							<li class="award-item man-overview-single-ul-item" style="font-size: 200%;"><span>{{ aw.award_detail }}</span>{% if aw.prove_file %}<span class="prove_file" data-image="{% static aw.prove_file.url %}"></span>{% endif %}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if Language is not None %}
+					<div class="language-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Language:</h2>
+						<ul class="language man-overview-single-ul">
+							{% for ln in Language %}
+							<li class="language-item d-inline man-overview-single-ul-item" style="font-size: 200%;"><span>{{ ln.language }}</li>{% if not forloop.last %}<span class="display-4">, </span>{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				{% if Membership is not None %}
+					<div class="membership-wrap text-left">
+						<h2 class="text-uppercase my-4 py-4 px-1 h2-man-overview-single-title">Membership:</h2>
+						<ul class="membership man-overview-single-ul">
+							{% for ms in Membership %}
+							<li class="membership-item man-overview-single-ul-item" style="font-size: 200%;"><span>{{ ms.in_detail }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+			{% endif %}
+			</div>
+		</div>
+	{% endif %}
+</div>

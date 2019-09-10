@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<div class="container">
+	<h1 class="wrapper-title blog-post-title display-3 {% if home_page %}py-5{% else %}py-2{% endif %} text-uppercase">Blog</h1>
+	{% if not home_page %}
+	{% if bl_ct.exists %}
+	<div class="blog-category-nav mb-5">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#portfolioNavSupportedContent" aria-controls="portfolioNavSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: 0;"><span class="navbar-toggler-icon"></span></button>
+		  <div class="collapse navbar-collapse row" id="portfolioNavSupportedContent">
+		    <ul class="navbar-nav justify-content-center col-12">
+		    	{% for ct in bl_ct %}
+			      <li class="nav-item {% if request.path == ct.get_cat_url %}active{% endif %}">
+			      	<a class="nav-link" href="{{ ct.get_cat_url }}">{{ ct.name|upper }}</a>
+			      </li>
+		      	{% endfor %}
+		    </ul>
+		  </div>
+		</nav>
+	</div>
+	{% endif %}
+	{% endif %}
+	<div class="blog-post-content d-block">
+		<div class="row">
+			{% if bl_ps is not None %}
+			{% for blog in bl_ps %}
+					<div class="col-12 col-md-2 col-lg-3">
+						<div class="single-blog-post text-left">
+							<div class="single-blog-post-header">
+								<a href="{{ blog.get_absolute_url }}"><img class="img-fluid" src="{% static blog.thumbnail.url %}"></a>
+								<a href="{{ blog.get_absolute_url }}"><h1 class="title">{{ blog.title }}</h1></a>
+								<h3 class="meta text-uppercase">{{ blog.timestamp }}</h3>
+							</div>
+							<div class="single-blog-post-description">
+								<p class="description">{{ blog.description|truncatewords:20 }}</p>
+							</div>
+						</div>
+					</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+	{% if home_page %}
+	<div class="blog-post-more more-from-home-to-another my-5 mx-4 text-uppercase">
+		<a class="bg-dark py-4 px-5 my-4 mx-4 text-light text-decoration-none" href="{% url 'blog_page' %}">{% if info.post_more_text %}{{ info.post_more_text }}{% else %}Blog More{% endif %}</a>
+	</div>
+	{% endif %}
+</div>

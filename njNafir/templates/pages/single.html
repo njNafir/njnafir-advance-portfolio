@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}{{ post.title }}{% if info.title %} | {{ info.title }}{% endif %}{% endblock title %}
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'nafir/css/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'nafir/css/single.css' %}">
+{% endblock stylesheet %}
+{% block content %}
+<header class="header-wrap header-bg">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/header.html' %}
+		</div>
+	</div>
+</header>
+<main class="content-wrap first-bg">
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="blog-post-wrap d-block">
+				<div class="container">
+					<div class="single-blog-post py-5 my-4">
+						<div class="entry-header header pb-3 mb-3">
+							<h1 class="post-title display-4 text-uppercase pb-3">{{ post.title }}</h1>
+							<div class="meta pb-4">
+								<span class="post-meta h4">{{ post.timestamp }} / {% for cat in post.category.all %}{{ cat.name }}{% if not forloop.last %},{% endif %}{% endfor %}</span>	
+							</div>
+							<img class="img-fluid" src="{% static post.thumbnail.url %}">
+						</div>
+						<div class="entry-content content-single text-left">
+							<p class="post-description description">{{ post.description|linebreaks }}</p>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</main>
+<footer class="footer-wrap footer-bg py-5">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/footer.html' with info=info so_li=so_li %}
+		</div>
+	</div>
+</footer>
+{% endblock content %}

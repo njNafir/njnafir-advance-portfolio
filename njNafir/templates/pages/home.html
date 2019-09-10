@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Home{% if info.title %} | {{ info.title }}{% endif %}{% endblock title %}
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'nafir/css/home.css' %}">
+{% endblock stylesheet %}
+{% block content %}
+<header class="header-wrap header-bg">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/header.html' with name=info.name desc=info.description vpt=info.view_portfolio_text hmt=info.hire_me_text %}
+		</div>
+	</div>
+</header>
+<main class="content-wrap first-bg">
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="about-wrap">
+				{% include 'pages/snippets/home_about.html' with info=info %}
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="portfolio-wrap d-block">
+				{% include 'pages/snippets/home_portfolio.html' with info=info sts=sts %}
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="blog-post-wrap d-block">
+				{% include 'pages/snippets/home_blog_post.html' with info=info bl_ps=bl_ps %}
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="col-12">
+			<div class="contact-wrap d-block text-light">
+				{% include 'pages/snippets/home_contact.html' %}
+			</div>
+		</div>
+	</div>
+</main>
+<footer class="footer-wrap footer-bg py-5">
+	<div class="row">
+		<div class="col-12">
+			{% include 'pages/snippets/footer.html' with info=info so_li=so_li %}
+		</div>
+	</div>
+</footer>
+{% endblock content %}

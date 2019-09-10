@@ -1,0 +1,109 @@
+{% load staticfiles %}
+{% url 'portfolio_all' as port_all %}
+{% url 'portfolio_full_stack' as port_dev_des %}
+{% url 'portfolio_developed' as port_dev %}
+{% url 'portfolio_designed' as port_des %}
+<div class="container">
+	{% if not single %}
+	<h1 class="wrapper-title portfolio-title display-3 {% if home_page %}py-5{% else %}py-2{% endif %} text-uppercase">Portfolio</h1>
+	{% endif %}
+	{% if not home_page %}
+	<div class="portfolio-nav mb-5 {% if single %}pt-5{% endif %}">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <button class="navbar-toggler w-100" type="button" data-toggle="collapse" data-target="#portfolioNavSupportedContent" aria-controls="portfolioNavSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: 0;"><span class="navbar-toggler-icon"></span></button>
+		  <div class="collapse navbar-collapse row" id="portfolioNavSupportedContent">
+		    <ul class="navbar-nav col-12">
+		      <li class="nav-item col-lg-3 {% if request.path == port_all %}active{% endif %}">
+		      	<a class="nav-link" href="{{ port_all }}">All</a>
+		      </li>
+		      <li class="nav-item col-lg-3 {% if request.path == port_dev_des %}active{% endif %}">
+		        <a class="nav-link" href="{{ port_dev_des }}">Full Stack</a>
+		      </li>
+		      <li class="nav-item col-lg-3 {% if request.path == port_dev %}active{% endif %}">
+		        <a class="nav-link" href="{{ port_dev }}">Developed</a>
+		      </li>
+		      <li class="nav-item col-lg-3 {% if request.path == port_des %}active{% endif %}">
+		        <a class="nav-link" href="{{ port_des }}">Designed</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+	</div>
+	{% endif %}
+	<div class="portfolio-content">
+		<div class="row no-gutters">
+			{% if not single %}
+			{% if sts %}
+			{% for st in sts %}
+				<div class="col-12 col-md-6 col-lg-4 float-left">
+					<div class="thumbnail-wrapper">
+						<img class="img-fluid" src="{% static st.thumbnail.url %}" style="width: 100vh;">
+						<div class="learn-more py-3">
+							<h2 class="title">{{ st.title }}</h2>
+							<h2 class="project_type">{{ st.project_type }}</h2>
+							<div class="learn-more-btn-wrap">
+								<a id="learnMoreBtn" class="learn-more-btn btn btn-lg btn-outline-success" href="{{ st.get_absolute_url }}">{% if info.store_d_more_text %}{{ info.store_d_more_text }}{% else %}Show More{% endif %}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			{% endif %}
+			{% endif %}
+			{% if single %}
+			{% if st %}
+				<div class="single-store col-12 d-block">
+					<div class="store-title py-4 text-uppercase">
+						<h2 class="title d-inline"><span style="color: #E31B6D;">{{ st.title }}</span>{% if st.subtitle %}<span> ( {{ st.subtitle }} ) </span>{% endif %}</h2>
+						<h2 class="project_type d-inline" style="opacity: 0.75;"> | {{ st.project_type }}</h2>
+					</div>
+					<div class="store-description py-4 mb-3">
+						<p>{{ st.description }}</p>
+					</div>
+					<div class="pt-2 pb-5">
+						<div class="gallery_slider">
+							<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+							  <div class="carousel-inner">
+							  	<div class="carousel-item active">
+									<img src="{% static st.thumbnail.url %}" class="d-block w-100" alt="Thumbnail image">
+							    </div>
+								{% for im in gal_im %}
+								{% if im.project_gallery_image_id is st.id %}
+							    <div class="carousel-item">
+									<img src="{% static im.files.url %}" class="d-block w-100" alt="{% if im.title %}{{ im.title }}{% endif %}">
+							    </div>
+							    {% endif %}
+								{% endfor %}
+							  </div>
+							  <a class="carousel-control-prev my-auto" href="#carouselExampleFade" role="button" data-slide="prev">
+							    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Previous</span>
+							  </a>
+							  <a class="carousel-control-next my-auto" href="#carouselExampleFade" role="button" data-slide="next">
+							    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Next</span>
+							  </a>
+							</div>
+						</div>
+					</div>
+					{% if st.used_skill.exists %}
+					<div class="store-used-skill py-3">
+						<h2 class="text-uppercase my-4 py-4 px-1">Used Skill:</h2>
+						<ul class="skill-single-ul">
+							{% for sk in st.used_skill.all %}
+							<li class="skill-item d-inline skill-single-ul-item" style="font-size: 200%;">{{ sk.prog_info }}</li>{% if not forloop.last %}<span class="display-4">, </span>{% endif %}
+							{% endfor %}
+						</ul>
+					</div>	
+					{% endif %}
+				</div>
+			{% endif %}
+			{% endif %}
+		</div>
+	</div>
+	{% if home_page %}
+	<div class="portfolio-more more-from-home-to-another my-4 mx-4 text-uppercase">
+		<a class="bg-dark py-4 px-5 my-4 mx-4 text-light text-decoration-none" href="{% url 'portfolio_all' %}">{% if info.store_more_text %}{{ info.store_more_text }}{% else %}Portfolio More{% endif %}</a>
+	</div>
+	{% endif %}
+</div>
