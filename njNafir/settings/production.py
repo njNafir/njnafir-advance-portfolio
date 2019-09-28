@@ -18,9 +18,11 @@ INSTALLED_APPS = [
 
     'whitenoise.runserver_nostatic',
 
+    'rest_framework',
     'nafir',
     'portfolio',
     'blog',
+    'bdtask',
     'contact',
     'about',
     'category'

@@ -23,4 +23,6 @@ urlpatterns = [
     re_path(r'^', include('portfolio.urls')),
     re_path(r'^', include('blog.urls')),
     re_path(r'^', include('contact.urls')),
+    re_path(r'^bdtask/', include('bdtask.urls')),
+    re_path(r'^bdtask/api/contacts/', include("bdtask.api.urls")),
 ]

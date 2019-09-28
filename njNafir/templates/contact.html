@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/ico" href="{% static 'media_file/img/favicon.ico' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bdtask/contact.css' %}">
+    {% block stylesheet %}{% endblock stylesheet %}
+    <title>{% block title %}{% if title %}{{ title }}{% endif %}{% endblock title %}</title>
+  </head>
+  <body>
+  {% block content %}
+    <header class="header-wrap header-bg"></header>
+      <main class="content-wrap first-bg">
+        <div class="row text-center">
+          <div class="col-12">
+            <div class="contact-wrap d-block text-dark">
+              <div class="container">
+                <h1 class="wrapper-title contact-title display-3 py-2 text-uppercase">Contact</h1>
+                <div class="contact">
+                  <div class="row text-center">
+                    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                      <div class="normal-contact">
+                        <h1 class="contact-quote text-uppercase">Bdtask API check with Contact form</h1>
+                        <hr class="mb-5">
+                        <div class="form-wrap">
+                          <form class="form" method="POST" action="">
+                            {{ form.as_p }}
+                            {% csrf_token %}
+                            <input type="submit" name="Submit" class="btn px-5 py-3 text-uppercase submit-normal-contact-form submit" value="Submit">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="footer-wrap footer-bg"></footer>
+    {% endblock content %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {% block jscript %}{% endblock jscript %}
+  </body>
+</html>
