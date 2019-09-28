@@ -19,7 +19,7 @@ class ContactDetailAPIView(RetrieveUpdateAPIView):
 class ContactListAPIView(ListAPIView):
 	queryset = Contact.objects.all()
 	serializer_class = ContactListSerializer
-	pagination_class = ContactPageNumberPagination #ContactLimitOffsetPagination
+	# pagination_class = ContactPageNumberPagination #ContactLimitOffsetPagination
 	# print("Start")
 	# for q in queryset:
 	# 	print(q.get_email)
